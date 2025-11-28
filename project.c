@@ -163,11 +163,15 @@ do {
         case 1:
             system("cls");
             addNewBook();
+            printf("\n");
+            printf("Nhap enter de tiep tuc!!!");
             getchar();
             break;
         case 2:
             system("cls");
             updateBook();
+            printf("\n");
+            printf("Nhap enter de tiep tuc!!!");
             getchar();
             break;
         case 3:
@@ -177,21 +181,26 @@ do {
         case 4:
             system("cls");
             deleteBook();
-            getchar();
             break;
         case 5:
             system("cls");
             searchBook();
+            printf("\n");
+            printf("Nhap enter de tiep tuc!!!");
             getchar();
             break;
         case 6:
             system("cls");
             addNewBorrow();
+            printf("\n");
+            printf("Nhap enter de tiep tuc!!!");
             getchar();
             break;
         case 7:
             system("cls");
             returnBorrow();
+            printf("\n");
+            printf("Nhap enter de tiep tuc!!!");
             getchar();
             break;
         case 8:
@@ -428,12 +437,16 @@ void updateBook() {
                         page--;
                     }
                     continueDisplay = 0;
+                    printf("\n");
+                    printf("Nhap enter de tiep tuc!!!");
                     getchar();
                     break;
                 case 2:
                     system("cls");
                     noBack=0;
                     continueDisplay = 0;
+                    printf("\n");
+                    printf("Nhap enter de tiep tuc!!!");
                     getchar();
                     break;
                 case 3:
@@ -444,6 +457,8 @@ void updateBook() {
                         page++;
                     }
                     continueDisplay = 0;
+                    printf("\n");
+                    printf("Nhap enter de tiep tuc!!!");
                     getchar();
                     break;
                 default:
@@ -477,15 +492,29 @@ void deleteBook() {
             }
         }
     }while (existedId(deleteId)==1 || statusI == 0 || lastcharI != '\n');
-
+    for (int i=0;i<n_book;i++) {
+        if (deleteId==listBook[i].bookId) {
+            printf("\n|%-15s|%-30s|%-15s|%-20s|%-20s|\n","Ma so sach","Tieu de sach","Nam phat hanh","tac gia","So luong");
+            for(int j=1;j<=106;j++){
+                printf("-");
+            }
+            printf("\n|%-15d|%-30s|%-15d|%-20s|%-20d|\n",listBook[i].bookId,listBook[i].title,listBook[i].publishYear,listBook[i].author,listBook[i].quantity);
+            for(int j=1;j<=106;j++){
+                printf("-");
+            }
+        }
+    }
     for (int i=0;i<n_borrow;i++) {
         if (listBorrow[i].bookId == deleteId && listBorrow[i].status == 1) {
-            printf("Sach dang duoc muon khong the xoa!!!");
+            printf("\nSach dang duoc muon khong the xoa!!!");
+            printf("\n");
+            printf("\nNhap enter de tiep tuc!!!");
+            getchar();
             return;
         }
     }
     char confirm;
-    printf("Ban co chac muon xoa khong?(y/n) ");
+    printf("\nBan co chac muon xoa khong?(y/n) ");
     fflush(stdin);
     scanf("%c",&confirm);
     if (confirm=='y' || confirm=='Y') {
@@ -496,6 +525,7 @@ void deleteBook() {
                 }
                 n_book--;
                 printf("Da xoa sach thanh cong!!!\n");
+
                 break;
             }
         }
@@ -565,7 +595,7 @@ void searchBook() {
         int statusB=0;
         Borrow b;
         do {
-            printf("nhap ma so sach can muon: ");
+            printf("Nhap ma so sach can muon: ");
             statusB= scanf("%d",&bookIdR);
             lastcharB=getchar();
             fflush(stdin);
@@ -620,8 +650,9 @@ void searchBook() {
                         }
                     }while (strlen(b.borrowerName)==0 || strcmp(b.borrowerName,"")==0);
 
+                    printf("\n");
                     printf("*** Muon sach thanh cong ***");
-                    printf("Da lay ra khoi thu vien");
+                    printf("\nDa lay ra khoi thu vien");
                     listBook[i].quantity--;
                     b.status=1;
                     listBorrow[n_borrow]=b;
@@ -654,7 +685,7 @@ void returnBorrow() {
     }
 
     do {
-        printf("Nhap ma so sach can tra: ");
+        printf("Nhap ma phieu muon can tra: ");
         statusR = scanf("%d", &returnBookId);
         lastcharR = getchar();
         fflush(stdin);
@@ -702,9 +733,7 @@ void returnBorrow() {
         printf("Nhap nam: ");
         scanf("%d", &returnDate.year);
         fflush(stdin);
-        if (!validateDay(returnDate.day, returnDate.month, returnDate.year) ||
-            !validateMonth(returnDate.month) ||
-            !validateYear(returnDate.year)) {
+        if (!validateDay(returnDate.day, returnDate.month, returnDate.year) || !validateMonth(returnDate.month) || !validateYear(returnDate.year)) {
             printf("Ngay thang nam tra khong hop le!\n");
             continue;
         }
@@ -715,19 +744,18 @@ void returnBorrow() {
              returnDate.month == listBorrow[borrowIndex].borrowDate.month &&
              returnDate.day < listBorrow[borrowIndex].borrowDate.day)) {
             printf("Ngay tra khong the truoc ngay muon!\n");
-            printf("Ngay muon: %02d/%02d/%d\n",
-                   listBorrow[borrowIndex].borrowDate.day,
-                   listBorrow[borrowIndex].borrowDate.month,
-                   listBorrow[borrowIndex].borrowDate.year);
+            printf("Ngay muon: %02d/%02d/%d\n",listBorrow[borrowIndex].borrowDate.day,listBorrow[borrowIndex].borrowDate.month,listBorrow[borrowIndex].borrowDate.year);
             continue;
         }
         validReturn = 1;
     } while (!validReturn);
 
+
     char confirm;
     int validConfirm = 0;
 
     do {
+
         printf("\nXac nhan tra sach? (c/k): ");
         scanf("%c", &confirm);
         fflush(stdin);
@@ -796,6 +824,7 @@ void displayBorrow() {
         }
         int continueDisplay = 1;
         while(continueDisplay) {
+
             printf("\nNhap 1 de quay lai trang truoc\n");
             printf("nhap 2 de thoat\n");
             printf("nhap 3 de sang trang tiep theo\n");
@@ -803,24 +832,32 @@ void displayBorrow() {
             scanf("%d",&choice);
             switch(choice) {
                 case 1:
+                    system("cls");
                     if (page==1) {
                         break;
                     }else{
                         page--;
                     }
                     continueDisplay = 0;
+                    printf("\n");
+                    printf("Nhap enter de tiep tuc!!!");
+                    getchar();
                     break;
                 case 2:
                     noBack=0;
                     continueDisplay = 0;
                     break;
                 case 3:
+                    system("cls");
                     if (page==totalPagesR) {
                         break;
                     }else {
                         page++;
                     }
                     continueDisplay = 0;
+                    printf("\n");
+                    printf("Nhap enter de tiep tuc!!!");
+                    getchar();
                     break;
                 default:
                     printf("Loi! Moi ban nhap tu 1-3!!\n");
