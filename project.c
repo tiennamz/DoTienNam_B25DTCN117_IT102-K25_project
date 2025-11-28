@@ -124,7 +124,7 @@ int n_book=35;
 int bookId=36;
 int page=1;
 int booksPerPage=10;
-int borrowId=1;
+int borrowId=31;
 int n_borrow = 30;
 int main() {
     system("cls");
@@ -315,21 +315,22 @@ void updateBook() {
         printf("\n");
 
         do {
+
             printf("Nhap tieu de sach: ");
             gets(b.title);
-            if (b.bookId==updateId) {
-                continue;
-            }
             if (strlen(b.title)==0 || strcasecmp(b.title," ")==0) {
                 printf("Tieu de khong duoc de trong!!!\n");
                 printf("Them sach that bai\n");
-            }else {
-                if (existedTitle(b.title)==0) {
+                return;
+            }
+for (int i=0;i<n_book;i++) {
+                if (strcasecmp(b.title,listBook[i].title)==0 && listBook[i].bookId != updateId) {
                     printf("Tieu de khong dc trung\n");
                     printf("Them sach that bai\n");
+
                 }
-            }
-        }while (strlen(b.title)==0 || strcasecmp(b.title," ")==0 || existedTitle(b.title)==0);
+}
+        }while (strlen(b.title)==0 || strcasecmp(b.title," ")==0 || (strcasecmp(b.title,listBook[i].title)==0 && b.bookId!=updateId));
 
         int statusY=0;
         char lastCharY=0;
