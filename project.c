@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<ctype.h>
 #define MAX 1000
+
 typedef struct {
     int day;
     int month;
@@ -15,7 +16,6 @@ typedef struct  {
     char author[50];
     int publishYear;
     int quantity;
-
 }Book;
 Book listBook[MAX];
  Book listBook[MAX]={{1,"To Kill a Mockingbird","Harper Lee",1960,3},
@@ -71,15 +71,15 @@ typedef struct {
 Borrow listBorrow[MAX];
 Borrow listBorrow[MAX]={
 
-{1,1,10,10,2024,11,11,2025,"Do Tien Nam",0},
+{1,1,10,10,2024,11,11,2025,"Do Tien Nam",1},
 {2,2,10,10,2024,11,11,2025,"Do Tien Nam",0},
 {3,4,10,10,2024,11,11,2025,"Do Tien Nam",0},
 {4,1,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{5,6,10,10,2024,11,11,2025,"Do Tien Nam",0},
+{5,6,10,10,2024,11,11,2025,"Do Tien Nam",1},
 {6,22,10,10,2024,11,11,2025,"Do Tien Nam",0},
 {7,18,10,10,2024,11,11,2025,"Do Tien Nam",0},
 {8,14,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{9,36,10,10,2024,11,11,2025,"Do Tien Nam",0},
+{9,36,10,10,2024,11,11,2025,"Do Tien Nam",1},
 {10,6,10,10,2024,11,11,2025,"Do Tien Nam",0},
 {11,22,10,10,2024,11,11,2025,"Do Tien Nam",0},
 {12,18,10,10,2024,11,11,2025,"Do Tien Nam",1},
@@ -102,7 +102,6 @@ Borrow listBorrow[MAX]={
 {29,36,10,10,2024,11,11,2025,"Do Tien Nam",1},
 {30,14,10,10,2024,11,11,2025,"Do Tien Nam",0},
 
-
 };
 void addNewBook();
 void updateBook();
@@ -120,15 +119,18 @@ int validateMonth(int month);
 int validateYear(int year);
 int existedIdBorrow(int bookId);
 int checkReturnDateValid(Date returnDate, Date borrowDate);
+
 int n_book=35;
 int bookId=36;
 int page=1;
 int booksPerPage=10;
 int borrowId=31;
 int n_borrow = 30;
+
 int main() {
     system("cls");
     int choice;
+
 do {
     printf("\n");
     printf("\n|--------------MENU---------------|\n");
@@ -144,6 +146,7 @@ do {
     printf("|---------------------------------|\n");
     printf("\n");
     int lastCharChoice=0;
+
     do {
         printf("Nhap lua chon: ");
         scanf("%d", &choice);
@@ -153,6 +156,7 @@ do {
             printf("Moi ban nhap lai lua chon!!!\n");
         }
     }while(lastCharChoice!='\n');
+
     switch(choice) {
         case 1:
             system("cls");
@@ -199,15 +203,16 @@ do {
             exit(0);
 
     }
-
 }while(1);
 }
 
 void addNewBook() {
     if (n_borrow==MAX) {
         printf("Kho sach da day!!!");
+        printf("\nMoi ban xoa sach truoc khi them!!!!");
         return;
     }
+
     printf("\n Ma so sach: %d\n",bookId);
     Book b;
     do {
@@ -274,7 +279,6 @@ void addNewBook() {
     listBook[n_book]=b;
     n_book++;
     bookId++;
-
 }
 void updateBook() {
     int updateId;
@@ -305,7 +309,6 @@ void updateBook() {
     for (int i=0;i<n_book;i++) {
         if (listBook[i].bookId==updateId) {
             index=i;
-
         b.bookId = listBook[index].bookId;
         printf("Ma so sach %d\n",updateId);
         printf("Ten sach ban dau: %s\n",listBook[index].title);
@@ -315,18 +318,17 @@ void updateBook() {
         printf("\n");
 
         do {
-
             printf("Nhap tieu de sach: ");
             gets(b.title);
             if (strlen(b.title)==0 || strcasecmp(b.title," ")==0) {
                 printf("Tieu de khong duoc de trong!!!\n");
-                printf("Them sach that bai\n");
+                printf("Cap nhat sach that bai\n");
                 return;
             }
 for (int i=0;i<n_book;i++) {
                 if (strcasecmp(b.title,listBook[i].title)==0 && listBook[i].bookId != updateId) {
                     printf("Tieu de khong dc trung\n");
-                    printf("Them sach that bai\n");
+                    printf("Cap nhat sach that bai\n");
 
                 }
 }
@@ -345,7 +347,7 @@ for (int i=0;i<n_book;i++) {
             }else {
                 if (statusY == 0 || lastCharY != '\n') {
                     printf("Nhap so nguyen cua nam!!!\n");
-                    printf("Them sach that bai\n");
+                    printf("Cap nhat sach that bai\n");
                 }
             }
         }while (b.publishYear<1900 || b.publishYear > 2025 || statusY == 0 || lastCharY != '\n');
@@ -355,7 +357,7 @@ for (int i=0;i<n_book;i++) {
             gets(b.author);
             if (strlen(b.author)==0 || strcasecmp(b.author," ")==0) {
                 printf("Tac gia khong duoc de trong!!!\n");
-                printf("Them sach that bai\n");
+                printf("Cap nhat sach that bai\n");
             }
         }while (strlen(b.author)==0 || strcasecmp(b.author," ")==0);
 
@@ -368,16 +370,16 @@ for (int i=0;i<n_book;i++) {
             fflush(stdin);
             if (b.quantity<0 || b.quantity > MAX) {
                 printf("So sach khong hop le!!!\n");
-                printf("Them sach that bai\n");
+                printf("Cap nhat sach that bai\n");
             }else {
                 if (statusQ == 0 || lastCharQ != '\n') {
                     printf("Nhap so nguyen cua sach!!!\n");
-                    printf("Them sach that bai\n");
+                    printf("Cap nhat sach that bai\n");
                 }
             }
         }while (statusQ == 0 || lastCharQ != '\n' || b.quantity < 0 || b.quantity > MAX);
 
-        printf("Da them sach thanh cong\n");
+        printf("Da cap nhat sach thanh cong\n");
         listBook[index]=b;
     }
 }
@@ -388,7 +390,6 @@ for (int i=0;i<n_book;i++) {
         printf("Moi ban nhap them sach!!!\n");
         return ;
     }
-
     int noBack=1;
     int choicePage;
     int totalPages = n_book/booksPerPage + (n_book%booksPerPage==0?0:1);
@@ -432,8 +433,8 @@ for (int i=0;i<n_book;i++) {
                     system("cls");
                     noBack=0;
                     continueDisplay = 0;
-                    break;
                     getchar();
+                    break;
                 case 3:
                     system("cls");
                     if (page==totalPages) {
@@ -442,8 +443,8 @@ for (int i=0;i<n_book;i++) {
                         page++;
                     }
                     continueDisplay = 0;
-                    break;
                     getchar();
+                    break;
                 default:
                     printf("Loi! Moi ban nhap tu 1-3!!\n");
                     printf("\n");
@@ -461,7 +462,6 @@ void deleteBook() {
         printf("Moi ban nhap them sach!!!\n");
         return ;
     }
-
     do {
         printf("Nhap ma so sach ban can xoa: ");
         statusI= scanf("%d", &deleteId);
@@ -475,17 +475,19 @@ void deleteBook() {
             }
         }
     }while (existedId(deleteId)==1 || statusI == 0 || lastcharI != '\n');
+
     for (int i=0;i<n_borrow;i++) {
-        if (listBorrow[i].status==1) {
+        if (listBorrow[i].bookId == deleteId && listBorrow[i].status == 1) {
             printf("Sach dang duoc muon khong the xoa!!!");
             return;
         }
     }
     char confirm;
     printf("Ban co chac muon xoa khong?(y/n) ");
+    fflush(stdin);
     scanf("%c",&confirm);
     if (confirm=='y' || confirm=='Y') {
-        for (int i=0; i<=n_book; i++) {
+        for (int i=0; i<n_book; i++) {
             if (listBook[i].bookId==deleteId) {
                 for (int j=i;j<n_book-1;j++) {
                     listBook[j]=listBook[j+1];
@@ -496,14 +498,12 @@ void deleteBook() {
             }
         }
     }else if (confirm=='n' || confirm=='N') {
-
         return;
     }else {
         printf("Nhap sai!!!\n");
     }
-
-
 }
+
 void searchBook() {
     char bookSearch[20];
     if (n_book==0) {
@@ -525,15 +525,12 @@ void searchBook() {
     int check=0;
     for (int i=0;i<n_book;i++) {
         strcpy(temp,listBook[i].title);
-
         for (int j=0;j<strlen(temp);j++) {
             temp[j]=toupper(temp[j]);
-
         }
         if (strstr(temp,bookSearch)!=NULL) {
             check=1;
         }
-
         if (check==1) {
             printf("\n|%-15s|%-30s|%-15s|%-20s|%-20s|\n","Ma so sach","Tieu de sach","Nam phat hanh","tac gia","So luong");
             for(int j=1;j<=106;j++) {
@@ -543,34 +540,27 @@ void searchBook() {
             for(int j=1;j<=106;j++){
                 printf("-");
             }
-
-           printf("\n");
+           printf("\n\n");
         }
     }
-
     if (check==0) {
         for (int i=0;i<strlen(bookSearch);i++) {
             bookSearch[i]=tolower(bookSearch[i]);
         }
         printf("\n");
         printf("Khong tim thay %s trong danh sach!\n",bookSearch);
-
     }
-
 }
   void addNewBorrow() {
     int check=0;
     int bookIdR=0;
     if (n_book==0) {
-
         printf("Moi ban nhap them sach!!!\n");
         return;
     }
-
         int lastcharB=0;
         int statusB=0;
         Borrow b;
-
         do {
             printf("nhap ma so sach can muon: ");
             statusB= scanf("%d",&bookIdR);
@@ -580,6 +570,7 @@ void searchBook() {
                 printf("Nhap ma so sach that bai!!!\n");
             }
         }while (lastcharB!='\n' || statusB==0);
+
         for (int i=0;i<n_book;i++) {
         if (bookIdR==listBook[i].bookId) {
             printf("\n|%-15s|%-30s|%-15s|%-20s|%-20s|\n","Ma so sach","Tieu de sach","Nam phat hanh","tac gia","So luong");
@@ -594,14 +585,14 @@ void searchBook() {
                 printf("\nDa het sach trong thu vien.");
                 return;
             }
-                char confirm;
-                int flag=1;
+            char confirm;
+            int flag=1;
             do {
-            printf("\nBan co muon muon sach tren khong(c/k)? ");
-            scanf("%c",&confirm);
-            fflush(stdin);
+                printf("\nBan co muon muon sach tren khong(c/k)? ");
+                scanf("%c",&confirm);
+                fflush(stdin);
                 if (confirm=='c' || confirm=='C') {
-
+                    b.borrowId = borrowId;
                     b.bookId = listBook[i].bookId;
                     do{
                         printf("Nhap ngay muon: ");
@@ -625,10 +616,12 @@ void searchBook() {
                         }
                     }while (strlen(b.borrowerName)==0 || strcmp(b.borrowerName,"")==0);
 
+                    printf("*** Muon sach thanh cong ***");
+                    printf("Da lay ra khoi thu vien");
                     listBook[i].quantity--;
                     b.status=1;
                     listBorrow[n_borrow]=b;
-                    bookIdR++;
+                    bookId++;
                     n_borrow++;
                     check=1;
                     flag=0;
@@ -638,14 +631,11 @@ void searchBook() {
                     printf("Nhap sai!!\n");
                 }
             }while (flag==1);
-
         }
     }
     if (check==0){
         printf("Ma so sach khong ton tai\n");
-
     }
-
 }
 
 void returnBorrow() {
@@ -654,38 +644,31 @@ void returnBorrow() {
     int lastcharR = 0;
     int found = 0;
     int borrowIndex = -1;
-
     if (n_borrow == 0) {
         printf("Chua co sach muon\n");
         return;
     }
-
-
     do {
         printf("Nhap ma so sach can tra: ");
         statusR = scanf("%d", &returnBookId);
         lastcharR = getchar();
         fflush(stdin);
-
         if (statusR == 0 || lastcharR != '\n') {
             printf("Nhap so nguyen cho ma so sach!!!\n");
         }
     } while (statusR == 0 || lastcharR != '\n');
 
-
     for (int i = 0; i < n_borrow; i++) {
-        if (listBorrow[i].bookId == returnBookId && listBorrow[i].status == 1) {
+        if (listBorrow[i].borrowId == returnBookId && listBorrow[i].status == 1) {
             borrowIndex = i;
             found = 1;
             break;
         }
     }
-
     if (found == 0) {
         printf("Khong tim thay phieu muon hoac sach da duoc tra!!!\n");
         return;
     }
-
     printf("\n=== THONG TIN PHIEU MUON ===\n");
     printf("Ma phieu muon: %d\n", borrowIndex + 1);
     printf("Ma so sach: %d\n", listBorrow[borrowIndex].bookId);
@@ -694,7 +677,6 @@ void returnBorrow() {
            listBorrow[borrowIndex].borrowDate.day,
            listBorrow[borrowIndex].borrowDate.month,
            listBorrow[borrowIndex].borrowDate.year);
-
     int bookIndex = -1;
     for (int i = 0; i < n_book; i++) {
         if (listBook[i].bookId == returnBookId) {
@@ -702,15 +684,12 @@ void returnBorrow() {
             break;
         }
     }
-
     if (bookIndex != -1) {
         printf("Ten sach: %s\n", listBook[bookIndex].title);
         printf("Tac gia: %s\n", listBook[bookIndex].author);
     }
-
     Date returnDate;
     int validReturn = 0;
-
     do {
         printf("\n--- NHAP NGAY TRA ---\n");
         printf("Nhap ngay: ");
@@ -739,40 +718,30 @@ void returnBorrow() {
                    listBorrow[borrowIndex].borrowDate.year);
             continue;
         }
-
         validReturn = 1;
-
     } while (!validReturn);
 
     char confirm;
     int validConfirm = 0;
-
     do {
         printf("\nXac nhan tra sach? (c/k): ");
         scanf("%c", &confirm);
         fflush(stdin);
-
         if (confirm == 'c' || confirm == 'C') {
-
             listBorrow[borrowIndex].borrowReturn = returnDate;
             listBorrow[borrowIndex].status = 0;
-
-
             if (bookIndex != -1) {
                 listBook[bookIndex].quantity++;
             }
-
-            printf("\n*** TRA SACH THANH CONG ***\n");
+            printf("\n*** Tra sach thanh cong ***\n");
             printf("Da cap nhat lai so luong sach trong kho.\n");
             validConfirm = 1;
-
         } else if (confirm == 'k' || confirm == 'K') {
             printf("Da huy tra sach.\n");
             validConfirm = 1;
         } else {
             printf("Nhap sai! Vui long nhap y hoac n.\n");
         }
-
     } while (!validConfirm);
 }
 
@@ -806,11 +775,9 @@ void displayBorrow() {
                 }
             }
            sprintf(borrowDateStr, "%02d/%02d/%04d", b.borrowDate.day, b.borrowDate.month, b.borrowDate.year);
-
                         if (b.status == 1) {
                             strcpy(statusStr, "Dang muon");
                             strcpy(returnDateStr, "----------");
-
                         } else {
                             strcpy(statusStr, "Da tra");
                             sprintf(returnDateStr, "%02d/%02d/%04d", b.borrowReturn.day, b.borrowReturn.month, b.borrowReturn.year);
@@ -822,7 +789,6 @@ void displayBorrow() {
                 }
             }
         }
-
         int continueDisplay = 1;
         while(continueDisplay) {
             printf("\nNhap 1 de quay lai trang truoc\n");
@@ -858,7 +824,6 @@ void displayBorrow() {
         }
     }
 }
-
 
 int existedTitle(char title[]) {
     for (int i = 0; i < n_book; i++) {
@@ -927,6 +892,7 @@ int existedIdBorrow(int bookId) {
     }
     return 1;
 }
+
 int checkReturnDateValid( Date borrowDate, Date borrowReturn) {
     if (borrowReturn.year < borrowDate.year) {
         return 0;
