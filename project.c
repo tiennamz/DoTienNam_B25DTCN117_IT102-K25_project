@@ -81,12 +81,12 @@ Borrow listBorrow[MAX]={
     {6, 22, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {7, 18, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {8, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
-    {9, 36, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {9, 35, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
     {10, 6, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {11, 22, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {12, 18, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
     {13, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
-    {14, 36, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {14, 35, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {15, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {16, 1, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {17, 2, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
@@ -96,12 +96,12 @@ Borrow listBorrow[MAX]={
     {21, 22, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {22, 18, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {23, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
-    {24, 36, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {24, 35, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {25, 6, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
     {26, 22, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
     {27, 18, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
     {28, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
-    {29, 36, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {29, 35, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
     {30, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
 };
 
@@ -552,6 +552,7 @@ void deleteBook() {
                     break;
                 }
             }
+                    break;
         case 'k':
         case 'K':
             printf("Nhap enter de thoat!!!!");
@@ -717,12 +718,11 @@ void searchBook() {
                         listBook[i].quantity--;
                         b.status=1;
                         listBorrow[n_borrow]=b;
-                        bookId++;
                         n_borrow++;
                         check=1;
                         flag=0;
                         borrowId++;
-
+                            break;
                     case 'k':
                     case 'K':
                         return;
@@ -851,11 +851,12 @@ void returnBorrow() {
                 printf("\n*** Tra sach thanh cong ***\n");
                 printf("Da cap nhat lai so luong sach trong kho.\n");
                 validConfirm = 1;
-
+                    break;
             case 'k':
             case 'K':
                 printf("Da huy tra sach.\n");
                 validConfirm = 1;
+                    break;
             default:
                 printf("Moi ban nhap lai!!!\n");
         }
