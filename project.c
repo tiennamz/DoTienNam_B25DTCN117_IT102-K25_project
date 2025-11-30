@@ -571,11 +571,12 @@ void searchBook() {
     }
     printf("\nNhap ten sach can tim kiem: ");
     gets(bookSearch);
+    if (checkSpace(bookSearch)) {
+        printf("Ten tim kiem khong duoc de trong!!!");
+        return;
+    }
     for (int i=0;i<strlen(bookSearch);i++) {
         bookSearch[i]=toupper(bookSearch[i]);
-    }
-    if (strlen(bookSearch)==0 || strcmp(bookSearch," ")==0) {
-        printf("Ten tim kiem khong duoc de trong!!!\n");
     }
     printf("\n");
     printf("Ket qua tim kiem:\n");
@@ -775,7 +776,7 @@ void returnBorrow() {
     }
     printf("\n=== THONG TIN PHIEU MUON ===\n");
     printf("Ma phieu muon: %d\n", borrowIndex + 1);
-    printf("Ma so sach: %d\n", listBorrow[borrowIndex].bookId);
+    printf("Ma so sach: %d\n", listBorrow[borrowIndex].borrowId);
     printf("Ten nguoi muon: %s\n", listBorrow[borrowIndex].borrowerName);
     printf("Ngay muon: %d/%d/%d\n",listBorrow[borrowIndex].borrowDate.day,listBorrow[borrowIndex].borrowDate.month,listBorrow[borrowIndex].borrowDate.year);
     int bookIndex = -1;
