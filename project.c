@@ -73,36 +73,36 @@ typedef struct {
 Borrow listBorrow[MAX];
 
 Borrow listBorrow[MAX]={
-{1,1,10,10,2024,11,11,2025,"Do Tien Nam",1},
-{2,2,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{3,4,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{4,1,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{5,6,10,10,2024,11,11,2025,"Do Tien Nam",1},
-{6,22,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{7,18,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{8,14,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{9,36,10,10,2024,11,11,2025,"Do Tien Nam",1},
-{10,6,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{11,22,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{12,18,10,10,2024,11,11,2025,"Do Tien Nam",1},
-{13,14,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{14,36,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{15,14,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{16,1,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{17,2,10,10,2024,11,11,2025,"Do Tien Nam",1},
-{18,4,10,10,2024,11,11,2025,"Do Tien Nam",1},
-{19,1,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{20,6,10,10,2024,11,11,2025,"Do Tien Nam",1},
-{21,22,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{22,18,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{23,14,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{24,36,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{25,6,10,10,2024,11,11,2025,"Do Tien Nam",1},
-{26,22,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{27,18,10,10,2024,11,11,2025,"Do Tien Nam",1},
-{28,14,10,10,2024,11,11,2025,"Do Tien Nam",0},
-{29,36,10,10,2024,11,11,2025,"Do Tien Nam",1},
-{30,14,10,10,2024,11,11,2025,"Do Tien Nam",0},
+    {1, 1, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {2, 2, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {3, 4, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {4, 1, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {5, 6, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {6, 22, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {7, 18, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {8, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {9, 36, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {10, 6, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {11, 22, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {12, 18, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {13, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {14, 36, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {15, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {16, 1, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {17, 2, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {18, 4, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {19, 1, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {20, 6, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {21, 22, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {22, 18, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {23, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {24, 36, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {25, 6, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {26, 22, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {27, 18, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {28, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
+    {29, 36, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 1},
+    {30, 14, {10,10,2024}, {11,11,2025}, "Do Tien Nam", 0},
 };
 
 void addNewBook();
@@ -721,6 +721,7 @@ void searchBook() {
                         n_borrow++;
                         check=1;
                         flag=0;
+                        borrowId++;
 
                     case 'k':
                     case 'K':
@@ -825,7 +826,7 @@ void returnBorrow() {
              b.borrowReturn.month == listBorrow[borrowIndex].borrowDate.month &&
              b.borrowReturn.day < listBorrow[borrowIndex].borrowDate.day)) {
                 printf("Ngay tra khong the truoc ngay muon!\n");
-                printf("Ngay muon: %02d/%02d/%d\n",listBorrow[borrowIndex].borrowDate.day,listBorrow[borrowIndex].borrowDate.month,listBorrow[borrowIndex].borrowDate.year);
+                printf("Ngay muon: %02d/%02d/%04d\n",listBorrow[borrowIndex].borrowDate.day,listBorrow[borrowIndex].borrowDate.month,listBorrow[borrowIndex].borrowDate.year);
              }else {
                  validReturn = 1;
              }
