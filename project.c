@@ -187,6 +187,7 @@ do {
         case 4:
             system("cls");
             deleteBook();
+            getchar();
             break;
         case 5:
             system("cls");
@@ -235,11 +236,9 @@ printf("\n Ma so sach: %d\n",bookId);
         gets(b.title);
         if (strlen(b.title)==0 || strcasecmp(b.title," ")==0) {
             printf("Tieu de khong duoc de trong!!!\n");
-            printf("Them sach that bai\n");
         }else {
             if (existedTitle(b.title)==0) {
                 printf("Tieu de khong dc trung\n");
-                printf("Them sach that bai\n");
             }
         }
     }while (strlen(b.title)==0 || strcasecmp(b.title," ")==0 || existedTitle(b.title)==0);
@@ -267,7 +266,6 @@ printf("Nam phat hanh khong hop le!!!\n");
         gets(b.author);
         if (strlen(b.author)==0 || strcasecmp(b.author," ")==0) {
             printf("Tac gia khong duoc de trong!!!\n");
-            printf("Them sach that bai\n");
         }
     }while (strlen(b.author)==0 || strcasecmp(b.author," ")==0);
 
@@ -506,12 +504,12 @@ void deleteBook() {
             printf("Ma so sach khong hop le!!!\n");
         }else if (!checkInteger(idDelete)) {
             printf("Ma so sah khong duoc de trong!!!\n");
+        }
+        else {
+            if (existedId(deleteId)) {
+                printf("Ma so sach khong ton tai!!!\n");
             }
-           else {
-               if (existedId(deleteId)) {
-                   printf("Ma so sach khong ton tai!!!\n");
-               }
-           }
+        }
     }while (checkSpace(idDelete) || existedId(deleteId) );
 
     for (int i=0;i<n_book;i++) {
@@ -535,25 +533,31 @@ void deleteBook() {
             return;
         }
     }
-    char confirm;
+    char confirm[5];
     printf("\nBan co chac muon xoa khong?(c/k) ");
-    scanf("%c",&confirm);
-    fflush(stdin);
-    if (confirm=='c' || confirm=='C') {
-        for (int i=0; i<n_book; i++) {
-            if (listBook[i].bookId==deleteId) {
-                for (int j=i;j<n_book-1;j++) {
-                    listBook[j]=listBook[j+1];
+    fgets(confirm,5,stdin);
+    confirm[strcspn(confirm,"\n")]='\0';
+    char choice = confirm[0];
+    switch (choice) {
+        case 'c':
+        case 'C':
+
+            for (int i=0; i<n_book; i++) {
+                if (listBook[i].bookId==deleteId) {
+                    for (int j=i;j<n_book-1;j++) {
+                        listBook[j]=listBook[j+1];
+                    }
+                    n_book--;
+                    printf("Da xoa sach thanh cong!!!\n");
+                    break;
                 }
-                n_book--;
-                printf("Da xoa sach thanh cong!!!\n");
-                break;
             }
-        }
-    }else if (confirm=='k' || confirm=='K') {
-        return;
-    }else {
-        printf("Nhap sai!!!\n");
+        case 'k':
+        case 'K':
+            printf("Nhap enter de thoat!!!!");
+            return;
+        default:
+            printf("Moi ban nhap lai!!!\n");
     }
 }
 
@@ -569,14 +573,15 @@ void searchBook() {
     for (int i=0;i<strlen(bookSearch);i++) {
         bookSearch[i]=toupper(bookSearch[i]);
     }
-    char temp[50];
     if (strlen(bookSearch)==0 || strcmp(bookSearch," ")==0) {
         printf("Ten tim kiem khong duoc de trong!!!\n");
     }
     printf("\n");
     printf("Ket qua tim kiem:\n");
-    int check=0;
+    int check;
     for (int i=0;i<n_book;i++) {
+        check=0;
+        char temp[50];
         strcpy(temp,listBook[i].title);
         for (int j=0;j<strlen(temp);j++) {
             temp[j]=toupper(temp[j]);
@@ -616,13 +621,13 @@ void searchBook() {
 
     char idReturn[50];
     do {
-        printf("Nhap sa so sach ban muon muon: ");
+        printf("Nhap ma so sach ban muon muon: ");
         fgets(idReturn,50,stdin);
-        idReturn[strlen(idReturn)]='\0';
+        idReturn[strcspn(idReturn,"\n")]='\0';
         bookIdR=atoi(idReturn);
         if (checkSpace(idReturn)) {
             printf("Ma so sach khong duoc de trong!!!\n");
-        }else if (!checkSpace(idReturn)) {
+        }else if (!checkInteger(idReturn)) {
                 printf("Ma so sach phai la so nguyen!!!\n");
            }
           else {
@@ -646,7 +651,7 @@ void searchBook() {
                 printf("\nDa het sach trong thu vien.");
                 return;
             }
-            char confirm;
+            char confirm[5];
             int flag=1;
             char borrowDay[10];
             char borrowMonth[10];
@@ -654,70 +659,74 @@ void searchBook() {
 
             do {
                 printf("\nBan co muon muon sach tren khong(c/k)? ");
-                scanf("%c",&confirm);
-                getchar();
-                fflush(stdin);
-                if (confirm=='c' || confirm=='C') {
-                    b.borrowId = borrowId;
-                    b.bookId = listBook[i].bookId;
+                fgets(confirm,5,stdin);
+                confirm[strlen(confirm)]='\0';
+                char choice=confirm[0];
+                switch (choice) {
+                    case 'c':
+                    case 'C':
+                        b.borrowId = borrowId;
+                        b.bookId = listBook[i].bookId;
 
-                    do {
-                        printf("Nhap ngay muon: ");
-                        fgets(borrowDay,10,stdin);
-                        borrowDay[strcspn(borrowDay,"\n")]='\0';
-                        printf("Nhap thang: ");
-                        fgets(borrowMonth,10,stdin);
-                        borrowMonth[strcspn(borrowMonth,"\n")]='\0';
-                        printf("Nhap nam: ");
-                        fgets(borrowYear,10,stdin);
-                        borrowYear[strcspn(borrowYear,"\n")]='\0';
-                        b.borrowDate.day=atoi(borrowDay);
-                        b.borrowDate.month=atoi(borrowMonth);
-                        b.borrowDate.year=atoi(borrowYear);
-                        if (checkSpace(borrowYear) || checkSpace(borrowMonth) || checkSpace(borrowDay)) {
-                            printf("Ngay thang nam muon khong duoc de trong!!!\n");
-                        }else if (!checkInteger(borrowDay)|| !checkInteger(borrowMonth) || !checkInteger(borrowYear)) {
-                            printf("Ngay thang nam muon phai la so nguyen!!!\n");
-                        }
-                          else{
-                             if(!validateDay(b.borrowDate.day,b.borrowDate.month,b.borrowDate.year)
-                                || !validateMonth(b.borrowDate.month)
-                                || !validateYear(b.borrowDate.year)){
-                                printf("Ngay thang nam muon khong hop le!\n");
-                                }
+                        do {
+                            printf("Nhap ngay muon: ");
+                            fgets(borrowDay,10,stdin);
+                            borrowDay[strcspn(borrowDay,"\n")]='\0';
+                            printf("Nhap thang: ");
+                            fgets(borrowMonth,10,stdin);
+                            borrowMonth[strcspn(borrowMonth,"\n")]='\0';
+                            printf("Nhap nam: ");
+                            fgets(borrowYear,10,stdin);
+                            borrowYear[strcspn(borrowYear,"\n")]='\0';
+                            b.borrowDate.day=atoi(borrowDay);
+                            b.borrowDate.month=atoi(borrowMonth);
+                            b.borrowDate.year=atoi(borrowYear);
+                            if (checkSpace(borrowYear) || checkSpace(borrowMonth) || checkSpace(borrowDay)) {
+                                printf("Ngay thang nam muon khong duoc de trong!!!\n");
+                            }else if (!checkInteger(borrowDay)|| !checkInteger(borrowMonth) || !checkInteger(borrowYear)) {
+                                printf("Ngay thang nam muon phai la so nguyen!!!\n");
                             }
-                    }while(!validateDay(b.borrowDate.day,b.borrowDate.month,b.borrowDate.year)
-                            || !validateMonth(b.borrowDate.month)
-                            || !validateYear(b.borrowDate.year)
-                            || checkSpace(borrowYear)
-                            || checkSpace(borrowMonth)
-                            || checkSpace(borrowDay)
-                            ||!checkInteger(borrowYear)
-                            || !checkInteger(borrowMonth)
-                            || !checkInteger(borrowDay));
+                            else{
+                                if(!validateDay(b.borrowDate.day,b.borrowDate.month,b.borrowDate.year)
+                                   || !validateMonth(b.borrowDate.month)
+                                   || !validateYear(b.borrowDate.year)){
+                                    printf("Ngay thang nam muon khong hop le!\n");
+                                   }
+                            }
+                        }while(!validateDay(b.borrowDate.day,b.borrowDate.month,b.borrowDate.year)
+                                || !validateMonth(b.borrowDate.month)
+                                || !validateYear(b.borrowDate.year)
+                                || checkSpace(borrowYear)
+                                || checkSpace(borrowMonth)
+                                || checkSpace(borrowDay)
+                                ||!checkInteger(borrowYear)
+                                || !checkInteger(borrowMonth)
+                                || !checkInteger(borrowDay));
 
-                    do {
-                        printf("\nNhap ten nguoi muon: ");
-                        gets(b.borrowerName);
-                        if (strlen(b.borrowerName)==0 || strcmp(b.borrowerName,"")==0) {
-                            printf("Ten khong duoc de trong!!!!\n");
-                        }
-                    }while (strlen(b.borrowerName)==0 || strcmp(b.borrowerName,"")==0);
+                        do {
+                            printf("\nNhap ten nguoi muon: ");
+                            gets(b.borrowerName);
+                            if (strlen(b.borrowerName)==0 || strcmp(b.borrowerName,"")==0) {
+                                printf("Ten khong duoc de trong!!!!\n");
+                            }
+                        }while (strlen(b.borrowerName)==0 || strcmp(b.borrowerName,"")==0);
 
-                    printf("\n");
-                    printf("*** Muon sach thanh cong ***");
-                    printf("\nDa lay ra khoi thu vien");
-                    listBook[i].quantity--;
-                    b.status=1;
-                    listBorrow[n_borrow]=b;
-                    bookId++;
-                    n_borrow++;
-                    check=1;
-                    flag=0;
-                }else if (confirm== 'k' || confirm=='K') {
-                    return;
-                }else {
-                    printf("Nhap sai!!\n");
+                        printf("\n");
+                        printf("*** Muon sach thanh cong ***");
+                        printf("\nDa lay ra khoi thu vien");
+                        listBook[i].quantity--;
+                        b.status=1;
+                        listBorrow[n_borrow]=b;
+                        bookId++;
+                        n_borrow++;
+                        check=1;
+                        flag=0;
+
+                    case 'k':
+                    case 'K':
+                        return;
+                    default:
+                        printf("Moi ban nhap lai!!!");
                 }
             }while (flag==1);
         }
@@ -779,7 +788,6 @@ void returnBorrow() {
         printf("Ten sach: %s\n", listBook[bookIndex].title);
         printf("Tac gia: %s\n", listBook[bookIndex].author);
     }
-    Date returnDate;
 
     int validReturn = 0;
     char returnDay[10];
@@ -800,50 +808,55 @@ void returnBorrow() {
         b.borrowReturn.day = atoi(returnDay);
         b.borrowReturn.month = atoi(returnMonth);
         b.borrowReturn.year = atoi(returnYear);
-        if (!validateDay(returnDate.day, returnDate.month, returnDate.year)
-            || !validateMonth(returnDate.month)
-            || !validateYear(returnDate.year)) {
-            printf("Ngay thang nam tra khong hop le!\n");
-            continue;
-        }
-        if (returnDate.year < listBorrow[borrowIndex].borrowDate.year ||
-            (returnDate.year == listBorrow[borrowIndex].borrowDate.year &&
-             returnDate.month < listBorrow[borrowIndex].borrowDate.month) ||
-            (returnDate.year == listBorrow[borrowIndex].borrowDate.year &&
-             returnDate.month == listBorrow[borrowIndex].borrowDate.month &&
-             returnDate.day < listBorrow[borrowIndex].borrowDate.day)) {
-            printf("Ngay tra khong the truoc ngay muon!\n");
-            printf("Ngay muon: %02d/%02d/%d\n",listBorrow[borrowIndex].borrowDate.day,listBorrow[borrowIndex].borrowDate.month,listBorrow[borrowIndex].borrowDate.year);
-        }else {
-            if (!checkInteger(returnDay) || !checkInteger(returnMonth) || !checkInteger(returnYear)) {
-                printf("Ngay thang nam tra phai la so nguyen!!!\n");
+        if ( checkSpace(returnDay) || checkSpace(returnMonth) || checkSpace(returnYear)) {
+                printf("Ngay thang nam muon khong duoc de trong!!!");
             }
-        }
-        validReturn = 1;
+        else if(!checkInteger(returnDay) || !checkInteger(returnMonth) || !checkInteger(returnYear)) {
+            printf("Ngay thang nam tra phai la so nguyen!!!\n");
+        } else if(!validateDay(b.borrowReturn.day, b.borrowReturn.month, b.borrowReturn.year)
+                 || !validateMonth(b.borrowReturn.month)
+                 || !validateYear(b.borrowReturn.year)) {
+                 printf("Ngay thang nam tra khong hop le!\n");
+                 }
+        else if (b.borrowReturn.year < listBorrow[borrowIndex].borrowDate.year ||
+            (b.borrowReturn.year == listBorrow[borrowIndex].borrowDate.year &&
+             b.borrowReturn.month < listBorrow[borrowIndex].borrowDate.month) ||
+            (b.borrowReturn.year == listBorrow[borrowIndex].borrowDate.year &&
+             b.borrowReturn.month == listBorrow[borrowIndex].borrowDate.month &&
+             b.borrowReturn.day < listBorrow[borrowIndex].borrowDate.day)) {
+                printf("Ngay tra khong the truoc ngay muon!\n");
+                printf("Ngay muon: %02d/%02d/%d\n",listBorrow[borrowIndex].borrowDate.day,listBorrow[borrowIndex].borrowDate.month,listBorrow[borrowIndex].borrowDate.year);
+             }else {
+                 validReturn = 1;
+             }
     } while (!validReturn);
 
-    char confirm;
+    char confirm[5];
     int validConfirm = 0;
 
     do {
-
         printf("\nXac nhan tra sach? (c/k): ");
-        scanf("%c", &confirm);
-        fflush(stdin);
-        if (confirm == 'c' || confirm == 'C') {
-            listBorrow[borrowIndex].borrowReturn = returnDate;
-            listBorrow[borrowIndex].status = 0;
-            if (bookIndex != -1) {
-                listBook[bookIndex].quantity++;
-            }
-            printf("\n*** Tra sach thanh cong ***\n");
-            printf("Da cap nhat lai so luong sach trong kho.\n");
-            validConfirm = 1;
-        } else if (confirm == 'k' || confirm == 'K') {
-            printf("Da huy tra sach.\n");
-            validConfirm = 1;
-        } else {
-            printf("Nhap sai! Vui long nhap c hoac k.\n");
+        fgets(confirm,5,stdin);
+        confirm[strcspn(confirm,"\n")] = '\0';
+        char choice = confirm[0];
+        switch (choice) {
+            case 'c':
+            case 'C':
+
+                listBorrow[borrowIndex].status = 0;
+                if (bookIndex != -1) {
+                    listBook[bookIndex].quantity++;
+                }
+                printf("\n*** Tra sach thanh cong ***\n");
+                printf("Da cap nhat lai so luong sach trong kho.\n");
+                validConfirm = 1;
+
+            case 'k':
+            case 'K':
+                printf("Da huy tra sach.\n");
+                validConfirm = 1;
+            default:
+                printf("Moi ban nhap lai!!!\n");
         }
     } while (!validConfirm);
 }
