@@ -343,7 +343,7 @@ do {
             }
         for (int i=0;i<n_book;i++) {
                 if (strcasecmp(b.title,listBook[i].title)==0 && listBook[i].bookId != updateId) {
-                    printf("Tieu de khong dc trung\n");
+                    printf("Tieu de khong duoc trung\n");
                     printf("Cap nhat sach that bai\n");
 
                 }
@@ -432,9 +432,9 @@ char updateQuantityBook[MAX];
         char pageChoice[5];
         while(continueDisplay) {
             printf("\nNhap 1 de quay lai trang truoc\n");
-            printf("nhap 2 de thoat\n");
-            printf("nhap 3 de sang trang tiep theo\n");
-            printf("nhap lua chon: ");
+            printf("Nhap 2 de thoat\n");
+            printf("Nhap 3 de sang trang tiep theo\n");
+            printf("Nhap lua chon: ");
             fgets(pageChoice,5,stdin);
             pageChoice[strcspn(pageChoice,"\n")]='\0';
             choicePage=atoi(pageChoice);
@@ -514,7 +514,7 @@ void deleteBook() {
 
     for (int i=0;i<n_book;i++) {
         if (deleteId==listBook[i].bookId) {
-            printf("\n|%-15s|%-30s|%-15s|%-20s|%-20s|\n","Ma so sach","Tieu de sach","Nam phat hanh","tac gia","So luong");
+            printf("\n|%-15s|%-30s|%-15s|%-20s|%-20s|\n","Ma so sach","Tieu de sach","Nam phat hanh","Tac gia","So luong");
             for(int j=1;j<=106;j++){
                 printf("-");
             }
@@ -592,7 +592,7 @@ void searchBook() {
             check=1;
         }
         if (check==1) {
-            printf("\n|%-15s|%-30s|%-15s|%-20s|%-20s|\n","Ma so sach","Tieu de sach","Nam phat hanh","tac gia","So luong");
+            printf("\n|%-15s|%-30s|%-15s|%-20s|%-20s|\n","Ma so sach","Tieu de sach","Nam phat hanh","Tac gia","So luong");
             for(int j=1;j<=106;j++) {
                 printf("-");
             }
@@ -641,7 +641,7 @@ void searchBook() {
 
     for (int i=0;i<n_book;i++) {
         if (bookIdR==listBook[i].bookId) {
-            printf("\n|%-15s|%-30s|%-15s|%-20s|%-20s|\n","Ma so sach","Tieu de sach","Nam phat hanh","tac gia","So luong");
+            printf("\n|%-15s|%-30s|%-15s|%-20s|%-20s|\n","Ma so sach","Tieu de sach","Nam phat hanh","Tac gia","So luong");
             for(int j=1;j<=106;j++){
                 printf("-");
             }
@@ -914,9 +914,10 @@ void displayBorrow() {
         while(continueDisplay) {
 
             printf("\nNhap 1 de quay lai trang truoc\n");
-            printf("nhap 2 de thoat\n");
-            printf("nhap 3 de sang trang tiep theo\n");
-            printf("nhap lua chon: ");
+            printf("Nhap 2 de thoat\n");
+            printf("Nhap 3 de sang trang tiep theo\n");
+            printf("Nhap lua chon: ");
+
             fgets(pageChoice,5,stdin);
             pageChoice[strcspn(pageChoice,"\n")]='\0';
             choice=atoi(pageChoice);
