@@ -120,7 +120,6 @@ int validateDay(int day, int month, int year);
 int validateMonth(int month);
 int validateYear(int year);
 int existedIdBorrow(int bookId);
-int checkReturnDateValid(Date returnDate, Date borrowDate);
 int checkSpace(char a[]);
 int checkInteger(char a[]);
 
@@ -234,14 +233,14 @@ printf("\n Ma so sach: %d\n",bookId);
     do {
         printf("Nhap tieu de sach: ");
         gets(b.title);
-        if (strlen(b.title)==0 || strcasecmp(b.title," ")==0) {
+        if (checkSpace(b.title)) {
             printf("Tieu de khong duoc de trong!!!\n");
         }else {
             if (existedTitle(b.title)==0) {
                 printf("Tieu de khong dc trung\n");
             }
         }
-    }while (strlen(b.title)==0 || strcasecmp(b.title," ")==0 || existedTitle(b.title)==0);
+    }while (checkSpace(b.title) || existedTitle(b.title)==0);
 
 char year[10];
     do {
@@ -255,19 +254,19 @@ char year[10];
                 printf("Nam phat hanh phai la so nguyen!!!\n");
 
         }else {
-            if (b.publishYear<1900 || b.publishYear>2025) {
+            if (b.publishYear<=1900 || b.publishYear>2025) {
 printf("Nam phat hanh khong hop le!!!\n");
             }
         }
-        }while (b.publishYear<1900 || b.publishYear>2025 ||checkSpace(year) || !checkInteger(year));
+        }while (b.publishYear<=1900 || b.publishYear>2025 ||checkSpace(year) || !checkInteger(year));
 
     do {
         printf("Nhap ten tac gia: ");
         gets(b.author);
-        if (strlen(b.author)==0 || strcasecmp(b.author," ")==0) {
+        if (checkSpace(b.author)) {
             printf("Tac gia khong duoc de trong!!!\n");
         }
-    }while (strlen(b.author)==0 || strcasecmp(b.author," ")==0);
+    }while (checkSpace(b.author));
 
 char quantityBook[MAX];
    do {
@@ -336,7 +335,7 @@ do {
         do {
             printf("Nhap tieu de sach: ");
             gets(b.title);
-            if (strlen(b.title)==0 || strcasecmp(b.title," ")==0) {
+            if (checkSpace(b.title)) {
                 printf("Tieu de khong duoc de trong!!!\n");
                 printf("Cap nhat sach that bai\n");
                 return;
@@ -348,7 +347,7 @@ do {
 
                 }
             }
-        }while (strlen(b.title)==0 || strcasecmp(b.title," ")==0 || (strcasecmp(b.title,listBook[i].title)==0 && b.bookId!=updateId));
+        }while (checkSpace(b.title) || (strcasecmp(b.title,listBook[i].title)==0 && b.bookId!=updateId));
 
 char updateYear[10];
             do {
@@ -362,20 +361,20 @@ char updateYear[10];
                     printf("Nam phat phai la so nguyen!!!\n");
                     }
                  else {
-                     if (b.publishYear<1900 || b.publishYear>2025) {
+                     if (b.publishYear<=1900 || b.publishYear>2025) {
                          printf("Nam phat hanh khong hop le!!!\n");
                      }
                  }
-            }while(checkSpace(updateYear) || b.publishYear<1900 || b.publishYear>2025 || !checkInteger(updateYear));
+            }while(checkSpace(updateYear) || b.publishYear<=1900 || b.publishYear>2025 || !checkInteger(updateYear));
 
         do {
             printf("Nhap ten tac gia moi: ");
             gets(b.author);
-            if (strlen(b.author)==0 || strcasecmp(b.author," ")==0) {
+            if (checkSpace(b.author)) {
                 printf("Tac gia khong duoc de trong!!!\n");
                 printf("Cap nhat sach that bai\n");
             }
-        }while (strlen(b.author)==0 || strcasecmp(b.author," ")==0);
+        }while (checkSpace(b.author));
 
 char updateQuantityBook[MAX];
         do {
@@ -1019,7 +1018,7 @@ int validateMonth(int month){
 }
 
 int validateYear(int year){
-    if(year<1900 || year>2025){
+    if(year<=1900 || year>2025){
         return 0;
     }
     return 1;
@@ -1030,25 +1029,6 @@ int existedIdBorrow(int bookId) {
         if (listBorrow[i].bookId==bookId) {
             return 0;
         }
-    }
-    return 1;
-}
-
-int checkReturnDateValid( Date borrowDate, Date borrowReturn) {
-    if (borrowReturn.year < borrowDate.year) {
-        return 0;
-    }
-    if (borrowReturn.year > borrowDate.year) {
-        return 1;
-    }
-    if (borrowReturn.month < borrowDate.month) {
-        return 0;
-    }
-    if (borrowReturn.month > borrowDate.month) {
-        return 1;
-    }
-    if (borrowReturn.day < borrowDate.day) {
-        return 0;
     }
     return 1;
 }
