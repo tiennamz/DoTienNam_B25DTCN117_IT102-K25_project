@@ -549,11 +549,13 @@ void deleteBook() {
             return;
         }
     }
-    char confirm[5];
-    printf("\nBan co chac muon xoa khong?(c/k) ");
-    fgets(confirm,5,stdin);
-    confirm[strcspn(confirm,"\n")]='\0';
-    char choice = confirm[0];
+    int check=0;
+    do {
+        char confirm[5];
+        printf("\nBan co chac muon xoa khong?(c/k) ");
+        fgets(confirm,5,stdin);
+        confirm[strcspn(confirm,"\n")]='\0';
+        char choice = confirm[0];
         switch (choice) {
             case 'c':
             case 'C':
@@ -567,7 +569,8 @@ void deleteBook() {
                         break;
                     }
                 }
-                break;
+                check=1;
+                return;
             case 'k':
             case 'K':
                 printf("Da huy xoa sach!\n");
@@ -575,8 +578,8 @@ void deleteBook() {
                 return;
             default:
                 printf("Ban chi co the nhap c/k!!!\n");
-                printf("Nhap enter de thoat!!!!");
         }
+    }while (check==0);
 }
 
 void searchBook() {
@@ -679,7 +682,7 @@ void searchBook() {
             do {
                 printf("\nBan co muon muon sach tren khong(c/k)? ");
                 fgets(confirm,5,stdin);
-                confirm[strlen(confirm)]='\0';
+                confirm[strcspn(confirm,"\n")]='\0';
                 char choice=confirm[0];
                 switch (choice) {
                     case 'c':
@@ -725,10 +728,10 @@ void searchBook() {
                         do {
                             printf("\nNhap ten nguoi muon: ");
                             gets(b.borrowerName);
-                            if (strlen(b.borrowerName)==0 || strcmp(b.borrowerName,"")==0) {
+                            if (checkSpace(b.borrowerName)) {
                                 printf("Ten khong duoc de trong!!!!\n");
                             }
-                        }while (strlen(b.borrowerName)==0 || strcmp(b.borrowerName,"")==0);
+                        }while (checkSpace(b.borrowerName));
 
                         printf("\n");
                         printf("*** Muon sach thanh cong ***");
