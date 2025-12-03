@@ -433,15 +433,16 @@ char updateQuantityBook[MAX];
             printf("\nNhap 1 de quay lai trang truoc\n");
             printf("Nhap 2 de thoat\n");
             printf("Nhap 3 de sang trang tiep theo\n");
+            printf("Nhap 4 de chon trang ban muon xem\n");
             printf("Nhap lua chon: ");
             fgets(pageChoice,5,stdin);
             pageChoice[strcspn(pageChoice,"\n")]='\0';
             choicePage=atoi(pageChoice);
-            if (checkInteger(pageChoice)) {
-                printf("Lua chon khong duoc de trong!!!");
+            if (checkSpace(pageChoice)) {
+                printf("Lua chon khong duoc de trong!!!\n");
             }else {
                 if (!checkInteger(pageChoice)) {
-                    printf("Lua chon phai la so nguyen!!!");
+                    printf("Lua chon phai la so nguyen!!!\n");
                 }
             }
             switch(choicePage) {
@@ -477,8 +478,24 @@ char updateQuantityBook[MAX];
                     printf("Nhap enter de tiep tuc!!!");
                     getchar();
                     break;
+                case 4:
+                    system("cls");
+                    do{
+                        printf("Nhap trang ban muon toi: ");
+                        scanf("%d",&page);
+                        fflush(stdin);
+                        if(page<1 || page>totalPages){
+                            printf("\nBan chi duoc nhap so trang tu 1 den %d\n",totalPages);
+                        }
+                    }while(page<1 || page>totalPages);
+
+                    continueDisplay = 0;
+                    printf("\n");
+                    printf("Nhap enter de tiep tuc!!!");
+                    getchar();
+                    break;
                 default:
-                    printf("Loi! Moi ban nhap tu 1-3!!\n");
+                    printf("Loi! Moi ban nhap tu 1-4!!\n");
                     printf("\n");
             }
         }
@@ -509,7 +526,7 @@ void deleteBook() {
                 printf("Ma so sach khong ton tai!!!\n");
             }
         }
-    }while (checkSpace(idDelete) || existedId(deleteId) );
+    }while (checkSpace(idDelete) || !checkInteger(idDelete)  || existedId(deleteId) );
 
     for (int i=0;i<n_book;i++) {
         if (deleteId==listBook[i].bookId) {
@@ -537,28 +554,29 @@ void deleteBook() {
     fgets(confirm,5,stdin);
     confirm[strcspn(confirm,"\n")]='\0';
     char choice = confirm[0];
-    switch (choice) {
-        case 'c':
-        case 'C':
-
-            for (int i=0; i<n_book; i++) {
-                if (listBook[i].bookId==deleteId) {
-                    for (int j=i;j<n_book-1;j++) {
-                        listBook[j]=listBook[j+1];
+        switch (choice) {
+            case 'c':
+            case 'C':
+                for (int i=0; i<n_book; i++) {
+                    if (listBook[i].bookId==deleteId) {
+                        for (int j=i;j<n_book-1;j++) {
+                            listBook[j]=listBook[j+1];
+                        }
+                        n_book--;
+                        printf("Da xoa sach thanh cong!!!\n");
+                        break;
                     }
-                    n_book--;
-                    printf("Da xoa sach thanh cong!!!\n");
-                    break;
                 }
-            }
-                    break;
-        case 'k':
-        case 'K':
-            printf("Nhap enter de thoat!!!!");
-            return;
-        default:
-            printf("Moi ban nhap lai!!!\n");
-    }
+                break;
+            case 'k':
+            case 'K':
+                printf("Da huy xoa sach!\n");
+                printf("Nhap enter de thoat!!!!");
+                return;
+            default:
+                printf("Ban chi co the nhap c/k!!!\n");
+                printf("Nhap enter de thoat!!!!");
+        }
 }
 
 void searchBook() {
@@ -915,6 +933,7 @@ void displayBorrow() {
             printf("\nNhap 1 de quay lai trang truoc\n");
             printf("Nhap 2 de thoat\n");
             printf("Nhap 3 de sang trang tiep theo\n");
+            printf("Nhap 4 de chon trang ban muon xem\n");
             printf("Nhap lua chon: ");
 
             fgets(pageChoice,5,stdin);
@@ -956,8 +975,24 @@ void displayBorrow() {
                     printf("Nhap enter de tiep tuc!!!");
                     getchar();
                     break;
+                case 4:
+                    system("cls");
+                    do{
+                        printf("Nhap trang ban muon toi: ");
+                        scanf("%d",&page);
+                        fflush(stdin);
+                        if(page<1 || page>totalPagesR){
+                            printf("\nBan chi duoc nhap so trang tu 1 den %d\n",totalPagesR);
+                        }
+                    }while(page<1 || page>totalPagesR);
+
+                    continueDisplay = 0;
+                    printf("\n");
+                    printf("Nhap enter de tiep tuc!!!");
+                    getchar();
+                    break;
                 default:
-                    printf("Loi! Moi ban nhap tu 1-3!!\n");
+                    printf("Loi! Moi ban nhap tu 1-4!!\n");
                     printf("\n");
             }
         }
